@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enviar Mensagem para WhatsApp</title>
+</head>
+<body>
+    <h2>Enviar Mensagem para WhatsApp</h2>
+    <form id="whatsappForm">
+        <label for="numero">Número:</label><br>
+        <input type="text" id="numero" name="numero" placeholder="Número com código do país, ex: 5511999999999" required><br><br>
+        
+        <label for="mensagem">Mensagem:</label><br>
+        <textarea id="mensagem" name="mensagem" placeholder="Digite sua mensagem aqui" required></textarea><br><br>
+        
+        <button type="button" onclick="enviarMensagem()">Enviar</button>
+    </form>
+
+    <script>
+        function enviarMensagem() {
+            var numero = document.getElementById('numero').value;
+            var mensagem = document.getElementById('mensagem').value;
+
+            // Remove espaços em branco
+            numero = numero.replace(/\s+/g, '');
+
+            // Verifica se o número é válido
+            if (numero === '' || isNaN(numero)) {
+                alert('Por favor, insira um número de telefone válido.');
+                return;
+            }
+
+            // Codifica a mensagem para ser usada na URL
+            var mensagemEncoded = encodeURIComponent(mensagem);
+
+            // Cria a URL do WhatsApp
+            var url = `https://api.whatsapp.com/send?phone=${numero}&text=${mensagemEncoded}`;
+
+            // Redireciona para a URL do WhatsApp
+            window.open(url, '_blank');
+        }
+    </script>
+</body>
+</html>
